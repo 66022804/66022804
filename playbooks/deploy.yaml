@@ -1,24 +1,13 @@
-
 - name: Deploy Docker Container
   hosts: dockerservers
-  gather_facts: true  # เปิด gather_facts เพื่อให้ Ansible ตรวจสอบระบบ
+  gather_facts: false
   remote_user: root
   tasks:
-    - name: Ensure Docker is installed
-      apt:
-        name: docker.io
-        state: present
-
-    - name: Ensure Python Docker SDK is installed
-      pip:
-        name: docker
-        state: present
-
     - name: Creating the Container
       docker_container:
-        name: 66022804-container  # Docker container name
-        image: 66022804:latest  # Docker image name
-        ports:
-          - "3000:3000"  # เลข port ที่เปิดให้เข้าถึงจาก browser
-        state: started
-        restart_policy: always  # ใช้ restart_policy ที่ถูกต้อง
+         name: 66022804-container #docker container name
+         image: 66022804:latest #docker image name
+         ports:
+           - "4000:4000" #เลข port ตัวแรกคือเลข  port ที่รับมาจาก browser ตัวหลังคือ  port ของ docker (คงไว้ที่ 80 ถ้าเป็น nextjs project ก็ 3000)
+         state: started
+         restart: true
